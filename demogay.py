@@ -31,4 +31,10 @@ async def gay(ctx, member: Member = None):
         exec(open("gay.py").read())
         await ctx.send(file=discord.File('output.png'))
 
+@bot.command()
+async def pfp(ctx, member: Member = None):
+    if not member:
+        member = ctx.author
+    await ctx.send(member.avatar_url)
+
 bot.run(token)
