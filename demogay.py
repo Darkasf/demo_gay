@@ -40,11 +40,13 @@ async def pfp(ctx, member: Member = None):
 @bot.command()
 @commands.is_owner()
 async def restart(ctx):
+    await ctx.send("<a:loading:813072468657831946>")
     await bot.logout()
 
 @bot.command()
 @commands.is_owner()
 async def logout(ctx):
+    await ctx.send('\N{WAVING HAND SIGN}')
     await bot.logout()
     await exit(122)
 
