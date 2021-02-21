@@ -19,7 +19,6 @@ async def on_ready():
 
 @bot.command()
 async def gay(ctx, member: Member = None):
-    print('gaying')
     if not member:
         member = ctx.author
     r = requests.get(member.avatar_url, stream=True)
@@ -37,5 +36,16 @@ async def pfp(ctx, member: Member = None):
     if not member:
         member = ctx.author
     await ctx.send(member.avatar_url)
+
+@bot.command()
+@commands.is_owner()
+async def restart(ctx):
+    await bot.logout()
+
+@bot.command()
+@commands.is_owner()
+async def logout(ctx):
+    await bot.logout()
+    await exit(122)
 
 bot.run(token)
