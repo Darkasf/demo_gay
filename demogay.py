@@ -53,6 +53,9 @@ async def man(ctx, *, content=""):
         naughty(ctx.author.id)
         return
     man = subprocess.check_output('man ' + content + " | sed '/DESCRIPTION/q' | sed '$d'", shell=True).decode('utf8')
+    if not man:
+        await ctx.send("sowwy, Dr. Demo doesn't know that command yet. ping that dumdum darky to install it or sumin")
+        return
     await ctx.send(man)
 
 @bot.command()
