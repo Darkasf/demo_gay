@@ -1,5 +1,5 @@
-from discord.ext import commands
 import discord
+from discord.ext import commands
 from discord import Member
 from PIL import Image
 import shutil
@@ -51,6 +51,9 @@ async def man(ctx, *, content=""):
     if ";" in content:
         await ctx.send("you are now on the naughty list <:pika_gun:814948352877264946>")
         naughty(ctx.author.id)
+        return
+    if "@" in content:
+        await ctx.send(content="there are no manuals for people", file=discord.File("Demoman_autodejectedtie01.wav"))
         return
     man = subprocess.check_output('man ' + content + " | sed '/DESCRIPTION/q' | sed '$d'", shell=True).decode('utf8')
     if not man:
