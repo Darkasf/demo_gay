@@ -1,10 +1,11 @@
-import discord
 from discord.ext import commands
+import discord
 from discord import Member
 from PIL import Image
 import shutil
 import requests
 import os
+import subprocess
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -32,6 +33,29 @@ async def gay(ctx, member: Member = None):
         await ctx.send(file=discord.File('output.png'))
 
 @bot.command()
+@commands.is_owner()
+async def run(ctx, *, content=""):
+    if not content:
+        await ctx.send("what do i run dumdum? you made me you shouldn't be this dumb. sorry if i hurt your feelings. i am merely your imagination. anyway, i trust you not to enter a dumb command so plz don't break shit.")
+        return
+    os.system(content)
+
+@bot.command()
+async def man(ctx, *, content=""):
+    if not content:
+        await ctx.send("specify a command dumdum")
+        return
+    if checknaughty(ctx.author.id):
+        await ctx.send("<:bill:814957341187113010> you are on the naughty list and i am rapidly approaching your location")
+        return
+    if ";" in content:
+        await ctx.send("you are now on the naughty list <:pika_gun:814948352877264946>")
+        naughty(ctx.author.id)
+        return
+    man = subprocess.check_output('man ' + content + " | sed '/DESCRIPTION/q' | sed '$d'", shell=True).decode('utf8')
+    await ctx.send(man)
+
+@bot.command()
 async def pfp(ctx, member: Member = None):
     if not member:
         member = ctx.author
@@ -49,5 +73,16 @@ async def logout(ctx):
     await ctx.send('\N{WAVING HAND SIGN}')
     await bot.logout()
     await exit(122)
+
+def naughty(id):
+    with open("naughtylist.txt", "a") as f:
+        f.write(str(id) + '\n')
+
+def checknaughty(id):
+    with open("naughtylist.txt", "r") as f:
+        for line in f.readlines():
+            if str(id) in line:
+                return True
+        return False
 
 bot.run(token)
