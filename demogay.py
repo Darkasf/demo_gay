@@ -74,6 +74,13 @@ async def logout(ctx):
     await bot.logout()
     await exit(122)
 
+@bot.command()
+@commands.is_owner()
+async def update(ctx):
+    os.system("git pull")
+    await ctx.send("<a:loading:813072468657831946>")
+    bot.logout()
+
 def naughty(id):
     with open("naughtylist.txt", "a") as f:
         f.write(str(id) + '\n')
