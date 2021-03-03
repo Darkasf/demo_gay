@@ -1,4 +1,6 @@
 import discord
+import random
+import json
 from discord.ext import commands
 from discord import Member
 from PIL import Image
@@ -66,6 +68,19 @@ async def pfp(ctx, member: Member = None):
     if not member:
         member = ctx.author
     await ctx.send(member.avatar_url)
+
+@bot.command()
+async def react(ctx, *, content = ""):
+    if not content:
+        await ctx.send("how? dumdum")
+        return
+    with open('reaction_images.json') as f:
+        images = json.load(f)
+    if content not in images.keys():
+        await ctx.send("ping that dumdum darky and tell her what images to use for this reaction")
+        return
+    reaction = images.get(content)[random.randint(0, len(images.get(content))-1)]
+    await ctx.send(reaction)
 
 @bot.command()
 @commands.is_owner()
