@@ -83,6 +83,11 @@ async def react(ctx, *, content = ""):
     await ctx.send(reaction)
 
 @bot.command()
+async def patchnotes(ctx)
+    notes = subprocess.check_output('git log -1 --pretty=%B', shell=True).deode('utf8').strip()
+    await ctx.send(notes)
+
+@bot.command()
 @commands.is_owner()
 async def restart(ctx):
     await ctx.send("<a:loading:813072468657831946>")
