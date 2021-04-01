@@ -84,7 +84,7 @@ async def react(ctx, *, content = ""):
 
 @bot.command()
 async def patchnotes(ctx):
-    notes = subprocess.check_output('git log -1 --pretty=%B', shell=True).deode('utf8').strip()
+    notes = subprocess.check_output('git log -1 --pretty=%B', shell=True).decode('utf8').strip()
     await ctx.send(notes)
 
 @bot.command()
