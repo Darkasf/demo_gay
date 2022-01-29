@@ -112,10 +112,11 @@ def naughty(id):
         f.write(str(id) + '\n')
 
 def checknaughty(id):
-    with open("naughtylist.txt", "r") as f:
-        for line in f.readlines():
-            if str(id) in line:
-                return True
+    if(exists("naughtylist.txt")) :
+        with open("naughtylist.txt", "r") as f:
+            for line in f.readlines():
+                if str(id) in line:
+                    return True
         return False
 
 bot.run(token)
